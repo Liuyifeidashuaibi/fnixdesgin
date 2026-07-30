@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import heroImage from '@assets/c21c6775-5b23-4c5f-bd1a-f245a14ab235_1785418423471.png';
 import { motion, useInView } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -67,9 +68,9 @@ export default function Home() {
         ref={heroRef}
         className="relative h-screen w-full overflow-hidden"
         style={{
-          backgroundImage: 'url(/hero.jpg)',
+          backgroundImage: `url(${heroImage})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: '55% 72%',
         }}
       >
         {/* Overlay */}
