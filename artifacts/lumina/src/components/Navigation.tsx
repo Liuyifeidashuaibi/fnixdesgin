@@ -1,122 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'wouter';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
+const links = [{ label: 'WORK', href: '#work' }, { label: 'ABOUT', href: '#about' }];
+
 export default function Navigation() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const navLinks = [
-    { label: 'COLLECTION', href: '/#collection' },
-    { label: 'ABOUT', href: '/#about' },
-    { label: 'JOURNAL', href: '/#journal' },
-    { label: 'STORES', href: '/#stores' },
-  ];
-
-  return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{
-        background: scrolled
-          ? 'rgba(26, 18, 10, 0.95)'
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(8px)' : 'none',
-      }}
-    >
-      <div className="container mx-auto px-6 lg:px-12 py-5">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="text-white text-sm font-serif tracking-[0.35em]">
-            LUMINA
-          </Link>
-
-          {/* Desktop Center Nav */}
-          <div className="hidden lg:flex items-center gap-12">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors relative group"
-                data-testid={`link-${link.label.toLowerCase()}`}
-              >
-                {link.label}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-white/70 transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-          </div>
-
-          {/* Desktop Right */}
-          <div className="hidden lg:flex items-center gap-8">
-            <button
-              className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors"
-              data-testid="button-search"
-            >
-              SEARCH
-            </button>
-            <button
-              className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors"
-              data-testid="button-account"
-            >
-              ACCOUNT
-            </button>
-            <button
-              className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors"
-              data-testid="button-cart"
-            >
-              CART (0)
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            data-testid="button-mobile-menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-            className="lg:hidden"
-            style={{ background: 'rgba(26, 18, 10, 0.97)', backdropFilter: 'blur(12px)' }}
-          >
-            <div className="container mx-auto px-6 py-8 space-y-6">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="block text-white/85 text-xs tracking-[0.28em] hover:text-white transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                  data-testid={`link-mobile-${link.label.toLowerCase()}`}
-                >
-                  {link.label}
-                </a>
-              ))}
-              <div className="pt-6 border-t border-white/10 flex gap-8">
-                <button className="text-white/85 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-mobile-search">SEARCH</button>
-                <button className="text-white/85 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-mobile-account">ACCOUNT</button>
-                <button className="text-white/85 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-mobile-cart">CART (0)</button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
+  const [open, setOpen] = useState(false);
+  return <nav className="absolute z-20 w-full text-white">
+    <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-6 md:px-12 md:py-8 lg:px-16">
+      <a href="#" className="font-display text-3xl tracking-[-.08em]">fnix<span className="text-[#c6ff43]">.</span></a>
+      <div className="hidden items-center gap-8 md:flex">{links.map(link => <a key={link.label} href={link.href} className="text-[10px] font-medium tracking-[.22em] text-white/65 transition-colors hover:text-[#c6ff43]">{link.label}</a>)}<a href="mailto:hello@fnix.design" className="text-[10px] font-medium tracking-[.22em] text-[#c6ff43]">LET'S TALK ↗</a></div>
+      <button onClick={() => setOpen(!open)} className="md:hidden" aria-label="Toggle menu">{open ? <X size={21} /> : <Menu size={21} />}</button>
+    </div>
+    {open && <div className="border-y border-white/10 bg-[#101010] px-6 py-8 md:hidden"><div className="flex flex-col gap-6">{links.map(link => <a onClick={() => setOpen(false)} key={link.label} href={link.href} className="text-xs tracking-[.2em]">{link.label}</a>)}<a href="mailto:hello@fnix.design" className="text-xs tracking-[.2em] text-[#c6ff43]">LET'S TALK ↗</a></div></div>}
+  </nav>;
 }

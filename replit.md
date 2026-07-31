@@ -1,80 +1,38 @@
-# LUMINA — Timeless Elegance
+# Fnix Design
 
-A luxury jewelry brand frontend template (React + Vite) — a complete, scroll-rich single-page product showcase with cinematic hero, product collection, lookbook strip, brand story, editorial journal, store locator, and newsletter section.
+Fnix is an independent digital design studio portfolio. The current site introduces the studio and presents LUMINA as the first selected project.
 
-## Run & Operate
+## Commands
 
-- `pnpm --filter @workspace/lumina run dev` — frontend dev server (auto-assigned port)
-- `pnpm --filter @workspace/api-server run dev` — API server (port 8080)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
+- `pnpm --filter @workspace/lumina dev` — run the portfolio site
+- `pnpm --filter @workspace/lumina typecheck` — type-check the portfolio site
+- `pnpm --filter @workspace/lumina build` — build the portfolio site
+- `pnpm run typecheck` — type-check all workspace packages
+- `pnpm run build` — type-check and build all workspace packages
 
-## Stack
+The Vite application requires `PORT` and `BASE_PATH` environment variables when run outside the managed workspace. For example, in PowerShell:
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- Frontend: React 18 + Vite + Tailwind CSS v4 + framer-motion
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM (pre-configured, unused in current template)
-- Fonts: Cormorant Garamond (display serif) + Inter (body/nav)
-- Build: esbuild (API server CJS bundle)
+```powershell
+$env:PORT='5173'; $env:BASE_PATH='/'; pnpm --filter @workspace/lumina dev
+```
 
-## Where things live
+## Project structure
 
-- `artifacts/lumina/` — frontend SPA (the LUMINA template)
-  - `src/pages/home.tsx` — all sections: Hero, Collection, Lookbook, About, Journal, Stores, Newsletter
-  - `src/components/Navigation.tsx` — scroll-aware transparent → dark nav
-  - `src/components/Footer.tsx` — 4-column footer with social links
-  - `src/index.css` — LUMINA brand color tokens (warm browns, gold #C9A96E, off-white #F5F0E8)
-  - `public/` — product images, journal images, about-bg.jpg (AI-generated)
-- `artifacts/api-server/` — shared Express API (health endpoint only currently)
-- `lib/db/` — Drizzle ORM schema (empty; extend when backend needed)
-- `lib/api-spec/openapi.yaml` — OpenAPI spec (health only; extend for product API)
-- `attached_assets/` — source hero photo (woman with gold jewelry, warm amber light)
+- `artifacts/lumina/` — Fnix portfolio frontend (React, Vite, Tailwind CSS, Framer Motion)
+- `attached_assets/` — source project imagery used by the LUMINA case study
+- `artifacts/api-server/` — optional shared Express API (health endpoint only)
+- `lib/` — generated API clients, OpenAPI spec, and database package
 
-## Brand tokens
+## Design system
 
-| Token | Value | Usage |
-|---|---|---|
-| Dark brown | `#2C1F0E` | Main background, overlay |
-| Deep dark | `#1A120A` | Footer, Newsletter, Lookbook bg |
-| Gold accent | `#C9A96E` | Prices, CTA hovers, highlights |
-| Off-white | `#F5F0E8` | Collection/Journal section bg, text |
-| Medium brown | `#3A2912` | Secondary text on light bg |
+- Base: near-black `#101010`
+- Surface: warm off-white `#E8E4DC`
+- Accent: electric chartreuse `#C6FF43`
+- Display: Playfair Display
+- UI: DM Sans
 
-## Architecture decisions
+## Notes
 
-- Frontend-only template (no DB calls in current build). Backend exists and is wired via the shared proxy at `/api`.
-- Hero background image imported as ES module via `@assets` alias (points to `attached_assets/`) so Vite fingerprints it for cache-busting.
-- Navigation uses scroll listener with `passive: true` for perf; transitions at 80px scroll offset.
-- All section animations use `framer-motion` `useInView` with `once: true` — no re-animations on scroll-up.
-- `background-position: 62% center` on the hero keeps the model's face and jewelry in frame across viewports.
-
-## Product
-
-Full-page luxury jewelry brand template with:
-- **Hero** — full-viewport cinematic portrait, animated text reveal, season label + slide indicator
-- **Collection** — 3-product grid with hover "VIEW PIECE" overlay, staggered entrance
-- **Lookbook** — editorial 2-col strip with 2×2 image grid
-- **About** — brand story + 3 pillars (Craftsmanship, Materials, Legacy)
-- **Journal** — 3 editorial post cards with scroll reveal
-- **Stores** — 3 flagship city cards (New York, London, Tokyo) with addresses and "BOOK A VISIT"
-- **Newsletter** — email subscription with gold hover state
-- **Footer** — 4-column with social links (IG / PT / WB)
-
-## User preferences
-
-- User is a frontend design/art engineer building frontend templates
-- Source files live in Replit; user downloads via Replit zip export or GitHub to local `E:\FNIX\FnixDesign`
-- Hero background: `attached_assets/微信图片_20260731073118_336_43_1785454635209.png` (1536×1024, clean portrait shot)
-- Do not add backend features unless explicitly asked
-
-## Gotchas
-
-- The `@assets` Vite alias resolves to `attached_assets/` at the workspace root. Image filenames with Chinese characters work fine in Vite but must be imported as ES modules (not referenced via `/public/`).
-- `background-position: 62% center` is calibrated for the current hero image. If the hero image changes, re-calibrate.
-- Port is injected by the managed workflow (`artifacts/lumina: web`). Never hardcode a port.
-- After any OpenAPI spec change: run `pnpm --filter @workspace/api-spec run codegen` before touching frontend hooks.
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- LUMINA is the only published case study. Add future work as real projects become ready.
+- Images from `attached_assets/` are imported through the `@assets` alias so Vite fingerprints them in production.
+- Contact links currently point to `hello@fnix.design`; replace this with the final business email before launch.

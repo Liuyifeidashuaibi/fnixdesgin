@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -123,10 +123,10 @@
   --chart-4: 24 32 48;
   --chart-5: 20 28 42;
 
-  --app-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --app-font-serif: 'Cormorant Garamond', Georgia, serif;
+  --app-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --app-font-serif: 'Playfair Display', Georgia, serif;
   --app-font-mono: Menlo, monospace;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Playfair Display', Georgia, serif;
   --radius: 0rem;
   --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
   --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
@@ -285,6 +285,12 @@
     @apply font-sans antialiased text-[#F5F0E8];
     background-color: #2C1F0E;
   }
+
+  html { scroll-behavior: smooth; }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
 }
 
 /**

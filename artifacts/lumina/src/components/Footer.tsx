@@ -1,89 +1,9 @@
-import { Link } from 'wouter';
-
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  return (
-    <footer className="bg-[#1A120A] border-t border-white/10">
-      <div className="container mx-auto px-6 lg:px-12 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
-          <div>
-            <Link href="/" className="text-white text-lg font-serif tracking-[0.3em] mb-3 block">
-              LUMINA
-            </Link>
-            <p className="text-white/50 text-[11px] leading-relaxed tracking-wide mb-6">
-              Timeless elegance. Modern essence.
-            </p>
-            {/* Social */}
-            <div className="flex items-center gap-4">
-              <a href="#" className="text-white/40 text-[11px] tracking-[0.2em] hover:text-white/80 transition-colors" data-testid="link-social-ig">IG</a>
-              <span className="text-white/20 text-[11px]">—</span>
-              <a href="#" className="text-white/40 text-[11px] tracking-[0.2em] hover:text-white/80 transition-colors" data-testid="link-social-pt">PT</a>
-              <span className="text-white/20 text-[11px]">—</span>
-              <a href="#" className="text-white/40 text-[11px] tracking-[0.2em] hover:text-white/80 transition-colors" data-testid="link-social-wb">WB</a>
-            </div>
-          </div>
-
-          {/* Shop */}
-          <div>
-            <h3 className="text-white text-[11px] tracking-[0.28em] mb-6">SHOP</h3>
-            <ul className="space-y-3">
-              {['Earrings', 'Necklaces', 'Rings', 'Bracelets'].map((item) => (
-                <li key={item}>
-                  <a href="/#collection" className="text-white/50 text-[11px] tracking-wide hover:text-white transition-colors" data-testid={`link-footer-${item.toLowerCase()}`}>
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* About */}
-          <div>
-            <h3 className="text-white text-[11px] tracking-[0.28em] mb-6">ABOUT</h3>
-            <ul className="space-y-3">
-              {[
-                { label: 'Our Story', href: '/#about' },
-                { label: 'Journal', href: '/#journal' },
-                { label: 'Stores', href: '/#stores' },
-                { label: 'Contact', href: '#' },
-              ].map((item) => (
-                <li key={item.label}>
-                  <a href={item.href} className="text-white/50 text-[11px] tracking-wide hover:text-white transition-colors">
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Customer Care */}
-          <div>
-            <h3 className="text-white text-[11px] tracking-[0.28em] mb-6">CUSTOMER CARE</h3>
-            <ul className="space-y-3">
-              {['Shipping & Returns', 'Jewelry Care', 'Sizing Guide', 'FAQ'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-white/50 text-[11px] tracking-wide hover:text-white transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-[11px] tracking-wide">
-            © {currentYear} LUMINA. All rights reserved.
-          </p>
-          <div className="flex items-center gap-8">
-            <a href="#" className="text-white/30 text-[11px] tracking-wide hover:text-white/60 transition-colors">Privacy Policy</a>
-            <a href="#" className="text-white/30 text-[11px] tracking-wide hover:text-white/60 transition-colors">Terms of Service</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+  return <footer className="bg-[#101010] px-6 pb-7 pt-20 text-[#f4f1ec] md:px-12 md:pt-28 lg:px-16">
+    <div className="mx-auto max-w-[1600px]">
+      <p className="mb-5 text-[10px] font-medium tracking-[.23em] text-[#c6ff43]">HAVE A PROJECT IN MIND?</p>
+      <a href="mailto:hello@fnix.design" className="group inline-flex items-center gap-4 font-display text-[clamp(3.6rem,9vw,9rem)] leading-none tracking-[-.07em]">Let's make it <span className="text-[#c6ff43] transition-transform duration-300 group-hover:translate-x-3">↗</span></a>
+      <div className="mt-24 flex flex-col justify-between gap-5 border-t border-white/10 pt-5 text-[10px] font-medium tracking-[.18em] text-white/40 md:mt-32 md:flex-row"><span>© {new Date().getFullYear()} FNIX DESIGN</span><div className="flex gap-6"><a href="mailto:hello@fnix.design" className="hover:text-white">EMAIL</a><a href="#" className="hover:text-white">INSTAGRAM</a></div></div>
+    </div>
+  </footer>;
 }
