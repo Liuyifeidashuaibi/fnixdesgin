@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Search, User, ShoppingBag } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const navLinks = [
     { label: 'COLLECTION', href: '/#collection' },
@@ -14,40 +21,56 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
-      <div className="container mx-auto px-6 lg:px-12 py-6">
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{
+        background: scrolled
+          ? 'rgba(26, 18, 10, 0.95)'
+          : 'transparent',
+        backdropFilter: scrolled ? 'blur(8px)' : 'none',
+      }}
+    >
+      <div className="container mx-auto px-6 lg:px-12 py-5">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-white text-sm font-serif tracking-[0.3em]">
+          <Link href="/" className="text-white text-sm font-serif tracking-[0.35em]">
             LUMINA
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Center Nav */}
           <div className="hidden lg:flex items-center gap-12">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-white/90 text-xs tracking-[0.25em] hover:text-white transition-colors relative group"
+                className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors relative group"
                 data-testid={`link-${link.label.toLowerCase()}`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-white/70 transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
 
-          {/* Right Icons */}
+          {/* Desktop Right */}
           <div className="hidden lg:flex items-center gap-8">
-            <button className="text-white/90 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-search">
-              <Search className="w-4 h-4" />
+            <button
+              className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors"
+              data-testid="button-search"
+            >
+              SEARCH
             </button>
-            <button className="text-white/90 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-account">
-              <User className="w-4 h-4" />
+            <button
+              className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors"
+              data-testid="button-account"
+            >
+              ACCOUNT
             </button>
-            <button className="text-white/90 text-xs tracking-[0.25em] hover:text-white transition-colors flex items-center gap-2" data-testid="button-cart">
-              <ShoppingBag className="w-4 h-4" />
-              <span className="text-xs">(0)</span>
+            <button
+              className="text-white/85 text-[11px] tracking-[0.28em] hover:text-white transition-colors"
+              data-testid="button-cart"
+            >
+              CART (0)
             </button>
           </div>
 
@@ -57,7 +80,7 @@ export default function Navigation() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="button-mobile-menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
@@ -66,37 +89,29 @@ export default function Navigation() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden bg-[#2C1F0E] border-t border-white/10"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="lg:hidden"
+            style={{ background: 'rgba(26, 18, 10, 0.97)', backdropFilter: 'blur(12px)' }}
           >
             <div className="container mx-auto px-6 py-8 space-y-6">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="block text-white/90 text-sm tracking-[0.25em] hover:text-white transition-colors"
+                  className="block text-white/85 text-xs tracking-[0.28em] hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                   data-testid={`link-mobile-${link.label.toLowerCase()}`}
                 >
                   {link.label}
                 </a>
               ))}
-              <div className="pt-6 border-t border-white/10 flex gap-6">
-                <button className="text-white/90 text-sm tracking-[0.25em] hover:text-white transition-colors flex items-center gap-2" data-testid="button-mobile-search">
-                  <Search className="w-4 h-4" />
-                  <span>SEARCH</span>
-                </button>
-                <button className="text-white/90 text-sm tracking-[0.25em] hover:text-white transition-colors flex items-center gap-2" data-testid="button-mobile-account">
-                  <User className="w-4 h-4" />
-                  <span>ACCOUNT</span>
-                </button>
-                <button className="text-white/90 text-sm tracking-[0.25em] hover:text-white transition-colors flex items-center gap-2" data-testid="button-mobile-cart">
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>CART (0)</span>
-                </button>
+              <div className="pt-6 border-t border-white/10 flex gap-8">
+                <button className="text-white/85 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-mobile-search">SEARCH</button>
+                <button className="text-white/85 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-mobile-account">ACCOUNT</button>
+                <button className="text-white/85 text-xs tracking-[0.25em] hover:text-white transition-colors" data-testid="button-mobile-cart">CART (0)</button>
               </div>
             </div>
           </motion.div>
