@@ -1,0 +1,467 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   种子令牌（Seed tokens）— 编辑化暖调双色系统
+   浅色「纸感」章节 与 深色「影调」章节交替，金色作为唯一强调色。
+   外观切换（Paper / Noir 等预设）只需覆写这一小组变量。
+------------------------------------------------------------------- */
+:root {
+  --seed-bg: #f4f4f1;
+  --seed-fg: #17181a;
+  --seed-surface: #fafaf8;
+  --seed-primary: #15584a;
+  --seed-deep: #0f211d;
+  --seed-paper: #edf0ea;
+  --seed-radius: 2px;
+  --seed-type-scale: 1;
+  --seed-density: 1;
+
+  /* 纸感章节派生令牌 */
+  --bg: var(--seed-bg);
+  --fg: var(--seed-fg);
+  --surface: var(--seed-surface);
+  --muted: color-mix(in srgb, var(--seed-fg) 62%, var(--seed-bg));
+  --faint: color-mix(in srgb, var(--seed-fg) 42%, var(--seed-bg));
+  --hairline: color-mix(in srgb, var(--seed-fg) 14%, var(--seed-bg));
+  --hairline-strong: color-mix(in srgb, var(--seed-fg) 26%, var(--seed-bg));
+  --gold-ink: color-mix(in srgb, var(--seed-primary) 46%, var(--seed-fg));
+  --gold-soft: color-mix(in srgb, var(--seed-primary) 48%, var(--seed-bg));
+  --gold-line: color-mix(in srgb, var(--seed-primary) 72%, transparent);
+
+  /* 影调章节派生令牌 */
+  --deep: var(--seed-deep);
+  --deep-2: color-mix(in srgb, var(--seed-deep) 86%, var(--seed-paper));
+  --on-deep: var(--seed-paper);
+  --on-deep-70: color-mix(in srgb, var(--seed-paper) 70%, transparent);
+  --on-deep-55: color-mix(in srgb, var(--seed-paper) 55%, transparent);
+  --on-deep-40: color-mix(in srgb, var(--seed-paper) 40%, transparent);
+  --on-deep-20: color-mix(in srgb, var(--seed-paper) 20%, transparent);
+  --on-deep-10: color-mix(in srgb, var(--seed-paper) 10%, transparent);
+  --gold: var(--seed-primary);
+
+  --radius: var(--seed-radius);
+  --radius-lg: calc(var(--seed-radius) * 2);
+  --space-section: calc(clamp(96px, 11vw, 152px) * var(--seed-density));
+
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", "Songti SC",
+    "SimSun", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+}
+
+@theme inline {
+  --color-canvas: var(--bg);
+  --color-ink: var(--fg);
+  --color-surface: var(--surface);
+  --color-mutedink: var(--muted);
+  --color-faintink: var(--faint);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-goldink: var(--gold-ink);
+  --color-deep: var(--deep);
+  --color-deep2: var(--deep-2);
+  --color-paper: var(--on-deep);
+  --color-gold: var(--gold);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+/* ---------------------------------- 基础 ---------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--seed-primary) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--seed-primary);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(24px, 4vw, 48px);
+  }
+
+  /* ------------------------------ 排版 ------------------------------ */
+  .display-hero {
+    font-family: var(--font-display);
+    font-size: calc(clamp(72px, 12.5vw, 168px) * var(--seed-type-scale));
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+
+  .display-section {
+    font-family: var(--font-display);
+    font-size: calc(clamp(40px, 6vw, 68px) * var(--seed-type-scale));
+    line-height: 1;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  .display-card {
+    font-family: var(--font-display);
+    font-size: calc(clamp(24px, 3vw, 36px) * var(--seed-type-scale));
+    line-height: 1.05;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+  }
+
+  .serif-lg {
+    font-family: var(--font-display);
+    font-size: calc(clamp(20px, 2.2vw, 26px) * var(--seed-type-scale));
+    letter-spacing: 0.03em;
+    font-weight: 500;
+  }
+
+  .label {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+  }
+
+  .label-sm {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  .meta-num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rule-gold {
+    display: block;
+    width: 64px;
+    height: 1px;
+    margin-inline: auto;
+    background: var(--gold-line);
+  }
+
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    height: 2px;
+    background: color-mix(in srgb, var(--seed-primary) 80%, var(--seed-fg));
+    transform-origin: 0 50%;
+    pointer-events: none;
+  }
+
+  /* ------------------------------ 链接 ------------------------------ */
+  .link-under {
+    display: inline-block;
+    width: fit-content;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding-bottom: 2px;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .link-under:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* ------------------------------ 导航 ------------------------------ */
+  .site-nav {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    background: transparent;
+    transition: background-color 0.5s ease, backdrop-filter 0.5s ease,
+      border-color 0.5s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .site-nav.is-scrolled {
+    background: color-mix(in srgb, var(--seed-bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom-color: var(--hairline);
+  }
+
+  .nav-link {
+    position: relative;
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.3s ease;
+    padding-block: 4px;
+  }
+
+  .nav-link:hover {
+    color: var(--fg);
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: color-mix(in srgb, var(--seed-fg) 60%, transparent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link.is-active {
+    color: var(--fg);
+  }
+
+  .nav-link.is-active::after {
+    width: 100%;
+    background: var(--gold-ink);
+  }
+
+  /* ------------------------------ 按钮与徽章 ------------------------------ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: var(--radius);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 16px 30px;
+    line-height: 1;
+    transition: background-color 0.3s ease, color 0.3s ease,
+      border-color 0.3s ease, transform 0.15s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--deep);
+  }
+
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--seed-primary) 82%, var(--seed-paper));
+  }
+
+  .btn-outline {
+    border: 1px solid var(--on-deep-20);
+    color: var(--on-deep-70);
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--hairline-strong);
+    color: var(--muted);
+    border-radius: var(--radius);
+    padding: 7px 14px;
+    font-size: 11px;
+    font-weight: 450;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    white-space: nowrap;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+
+  .badge:hover {
+    border-color: var(--faint);
+    color: var(--fg);
+  }
+
+  .badge-solid {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--deep);
+  }
+
+  /* ------------------------------ 章节 ------------------------------ */
+  .section-pad {
+    padding-block: var(--space-section);
+  }
+
+  .chapter-deep {
+    background: var(--deep);
+    color: var(--on-deep);
+  }
+
+  .chapter-deeper {
+    background: color-mix(in srgb, var(--seed-deep) 82%, #000);
+    color: var(--on-deep);
+  }
+
+  .chapter-paper {
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  /* ------------------------------ 作品瓦片 ------------------------------ */
+  .work-tile {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--surface);
+    color: var(--fg);
+    border: 1px solid var(--gold-soft);
+    border-radius: var(--radius);
+  }
+
+  .work-tile svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .group:hover .work-tile svg {
+    transform: scale(1.05);
+  }
+
+  .tile-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--seed-deep) 62%, transparent);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+
+  .group:hover .tile-overlay,
+  .group:focus-within .tile-overlay {
+    opacity: 1;
+  }
+
+  .detail-tile {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--surface);
+    color: var(--fg);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+  }
+
+  .detail-tile svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .detail-tile:hover svg {
+    transform: scale(1.04);
+  }
+
+  /* ------------------------------ 经历卡片 ------------------------------ */
+  .gap-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .xp-card {
+    background: var(--bg);
+    padding: calc(34px * var(--seed-density)) 30px;
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .xp-card:hover {
+    background: var(--surface);
+    box-shadow: inset 0 2px 0 0 color-mix(in srgb, var(--seed-primary) 62%, transparent);
+  }
+
+  /* ------------------------------ 联系输入盒 ------------------------------ */
+  .mail-box {
+    display: flex;
+    border: 1px solid var(--on-deep-20);
+    border-radius: var(--radius);
+    transition: border-color 0.3s ease;
+  }
+
+  .mail-box:hover,
+  .mail-box:focus-within {
+    border-color: var(--on-deep-40);
+  }
+
+  .mail-box .mail-value {
+    flex: 1;
+    text-align: left;
+    padding: 16px 20px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--on-deep-70);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mail-box .mail-action {
+    flex-shrink: 0;
+    padding: 16px 26px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--on-deep-70);
+    border-left: 1px solid var(--on-deep-20);
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.15s ease;
+  }
+
+  .mail-box .mail-action:hover {
+    color: var(--gold);
+    background: color-mix(in srgb, var(--seed-paper) 5%, transparent);
+  }
+
+  .mail-box .mail-action:active {
+    transform: scale(0.97);
+  }
+}
+
+/* 降低动效偏好：关闭平滑滚动（framer-motion 通过 MotionConfig 降级） */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .work-tile svg,
+  .detail-tile svg,
+  .tile-overlay {
+    transition: none;
+  }
+}
