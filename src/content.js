@@ -14,7 +14,7 @@ export const content = {
     intent: "前端开发 / 网页视觉设计 · 专注品牌官网定制",
     email: "liuyifeidashuaibi@gmail.com",
     github: "https://github.com/Liuyifeidashuaibi",
-    site: "https://desgin.fnix.online",
+    site: "https://design.fnix.online",
     year: "2026",
   },
 
@@ -39,7 +39,7 @@ export const content = {
       intro:
         "高端珠宝品牌前端官网，React + Vite 单页应用。滚动叙事丰富：电影感首屏、产品系列、造型册、品牌故事、编辑期刊、门店查询与订阅七个区块，完整呈现奢侈品官网的版式与动效语言。",
       links: [
-        { label: "网站域名", latin: "designlumina.fnix.online", href: "https://designlumina.fnix.online" },
+        { label: "网站域名", latin: "lumina.fnix.online", href: "https://lumina.fnix.online" },
         { label: "GitHub", latin: "Liuyifeidashuaibi/lumina", href: "https://github.com/Liuyifeidashuaibi/lumina" },
       ],
     },
@@ -55,7 +55,7 @@ export const content = {
         "FNIX 是我的个人品牌：专注品牌官网的视觉设计与前端实现，从对标分析、版式动效到部署上线，独立全流程完成。",
         "LUMINA、AURELIS 与 Fnix 官网，都是这个品牌下的实践。",
       ],
-      link: { label: "官方网站", latin: "desgin.fnix.online", href: "https://desgin.fnix.online" },
+      link: { label: "官方网站", latin: "design.fnix.online", href: "https://design.fnix.online" },
     },
     name: {
       eyebrow: "NAME · 名字",

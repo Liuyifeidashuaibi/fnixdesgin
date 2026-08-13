@@ -30,7 +30,17 @@ function useRoute() {
 
   useEffect(() => {
     const onHash = () => {
-      setRoute(window.location.hash === "#about" ? "about" : "work");
+      const h = window.location.hash;
+      const next = h === "#about" ? "about" : "work";
+      setRoute(next);
+      // 默认路由不占用 URL：点击"作品"后立即移除 #work，保持分享链接干净
+      if (h === "#work") {
+        window.history.replaceState(
+          null,
+          "",
+          window.location.pathname + window.location.search
+        );
+      }
       window.scrollTo({ top: 0 });
     };
     window.addEventListener("hashchange", onHash);
