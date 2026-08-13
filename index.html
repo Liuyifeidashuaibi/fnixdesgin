@@ -8,21 +8,8 @@
       content="FNIXDESIGN — 品牌官网视觉设计与前端实现。代表作 LUMINA 奢侈品珠宝品牌官网。"
     />
     <title>FNIXDESIGN</title>
-    <script>
-      // 清理外部来源附带的脏路径、跟踪参数与冗余哈希（如 /foo?spm=...、#work）。
-      // #work 是默认路由（无哈希即作品页），保留只会弄脏分享链接；仅 #about 作为有效深链保留。
-      (function () {
-        var h = window.location.hash;
-        var target = "/" + (h === "#about" ? "#about" : "");
-        if (
-          window.location.pathname !== "/" ||
-          window.location.search ||
-          window.location.hash !== target
-        ) {
-          window.history.replaceState(null, "", target);
-        }
-      })();
-    </script>
+    <!-- URL 净化：外部文件（CSP script-src 'self' 禁止内联脚本），清理脏路径/跟踪参数/#work -->
+    <script src="/url-clean.js"></script>
     <link rel="icon" type="image/png" href="/logo.png?v=2" />
     <link rel="apple-touch-icon" href="/logo.png?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

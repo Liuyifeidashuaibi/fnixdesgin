@@ -33,8 +33,8 @@ function useRoute() {
       const h = window.location.hash;
       const next = h === "#about" ? "about" : "work";
       setRoute(next);
-      // 默认路由不占用 URL：点击"作品"后立即移除 #work，保持分享链接干净
-      if (h === "#work") {
+      // 仅 #about 是有效深链；#work（默认路由）与未知 hash 一律从地址栏移除，保持分享链接干净
+      if (h && h !== "#about") {
         window.history.replaceState(
           null,
           "",
